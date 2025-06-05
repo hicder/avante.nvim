@@ -92,7 +92,7 @@ elif [[ "$latest_tag" != "$built_tag" && -n "$latest_tag" ]]; then
   fi
 else
   cargo build --release --features=$LUA_VERSION
-  for f in target/release/lib*.so; do
+  for f in target/release/lib*.dylib; do
     cp "$f" "build/$(echo $f | sed 's#.*/lib##')"
   done
 fi
