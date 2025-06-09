@@ -210,6 +210,8 @@ function M.prepare_request_body(provider_instance, prompt_opts, provider_conf, r
 end
 
 function M:parse_response(ctx, data_stream, _, opts)
+  vim.notify(data_stream, vim.log.levels.INFO)
+
   local ok, json = pcall(vim.json.decode, data_stream)
   if not ok then
     opts.on_stop({ reason = "error", error = "Failed to parse JSON response: " .. tostring(json) })
