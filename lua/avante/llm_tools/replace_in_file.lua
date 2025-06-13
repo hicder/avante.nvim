@@ -85,6 +85,7 @@ M.returns = {
 ---@param diff string
 ---@return string
 local function fix_diff(diff)
+  vim.notify(diff,2, { title = "replace_in_file:fix_diff" })
   local has_search_line = diff:match("^%s*-------* SEARCH") ~= nil
   if has_search_line then return diff end
 
