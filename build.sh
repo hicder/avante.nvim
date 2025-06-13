@@ -2,7 +2,7 @@
 
 set -e
 
-REPO_OWNER="yetone"
+REPO_OWNER="hicder"
 REPO_NAME="avante.nvim"
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
@@ -92,7 +92,21 @@ elif [[ "$latest_tag" != "$built_tag" && -n "$latest_tag" ]]; then
   fi
 else
   cargo build --release --features=$LUA_VERSION
-  for f in target/release/lib*.dylib; do
-    cp "$f" "build/$(echo $f | sed 's#.*/lib##')"
-  done
+  cargo build --release --features=$LUA_VERSION
+  case "$PLATFORM" in
+    linux)
+      for f in target/release/lib*.so; do
+        cp "$f" "build/$(echo "$f" | sed 's#.*/lib##')"
+      done
+      ;;
+    darwin)
+      for f in target/release/lib*.dylib; do
+        cp "$f" "build/$(echo "$f" | sed 's#.*/lib##')"
+      done
+      ;;
+    *)
+      echo "Unsupported platform for local build: $PLATFORM"
+      exit 1
+      ;;
+  esac
 fi
