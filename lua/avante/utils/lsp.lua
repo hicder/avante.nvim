@@ -68,6 +68,7 @@ end
 ---@param show_line_numbers boolean
 ---@param on_complete fun(definitions: avante.lsp.Definition[] | nil, error: string | nil)
 function M.read_definitions(bufnr, symbol_name, show_line_numbers, on_complete)
+  vim.notify(symbol_name, vim.log.levels.INFO, { title = "read_definitions" })
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
   if #clients == 0 then
     on_complete(nil, "No LSP client found")
@@ -92,6 +93,9 @@ function M.read_definitions(bufnr, symbol_name, show_line_numbers, on_complete)
         on_complete(nil, result.error.message)
         return
       end
+
+      vim.notify(vim.inspect(result), vim.log.levels.INFO, { title = "read_definitions_2" })
+
       if not result.result then goto continue end
       local definitions = vim.tbl_filter(function(d) return d.name == symbol_name end, result.result)
       if #definitions == 0 then

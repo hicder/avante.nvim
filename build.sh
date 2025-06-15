@@ -2,7 +2,7 @@
 
 set -e
 
-REPO_OWNER="yetone"
+REPO_OWNER="hicder"
 REPO_NAME="avante.nvim"
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
