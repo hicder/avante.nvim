@@ -153,6 +153,8 @@ function M.func(opts, on_log, on_complete, session_ctx)
     session_ctx.streaming_diff_lines_count_history[opts.tool_use_id] = streaming_diff_lines_count
   end
 
+  vim.notify("replacing in file: " .. opts.diff, vim.log.levels.INFO, { title = "avante" })
+
   local diff = fix_diff(opts.diff)
 
   if on_log and diff ~= opts.diff then on_log("diff fixed") end

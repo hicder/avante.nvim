@@ -485,6 +485,7 @@ function M.curl(opts)
   local headers_file = temp_file .. "-response-headers.txt"
   local json_content = vim.json.encode(spec.body)
   fn.writefile(vim.split(json_content, "\n"), curl_body_file)
+  fn.system({"sync"})
 
   Utils.debug("curl request body file:", curl_body_file)
   Utils.debug("curl response body file:", resp_body_file)
