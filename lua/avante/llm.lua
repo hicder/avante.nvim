@@ -348,23 +348,23 @@ function M.generate_prompts(opts)
   local messages = vim.deepcopy(context_messages)
   for _, msg in ipairs(opts.history_messages or {}) do
     local message = msg.message
-    if msg.is_user_submission then
-      message = vim.deepcopy(message)
-      local content = message.content
-      if type(content) == "string" then
-        message.content = "<task>" .. content .. "</task>"
-      elseif type(content) == "table" then
-        for idx, item in ipairs(content) do
-          if type(item) == "string" then
-            item = "<task>" .. item .. "</task>"
-            content[idx] = item
-          elseif type(item) == "table" and item.type == "text" then
-            item.content = "<task>" .. item.content .. "</task>"
-            content[idx] = item
-          end
-        end
-      end
-    end
+    message = vim.deepcopy(message)
+    -- if msg.is_user_submission then
+    --   local content = message.content
+    --   if type(content) == "string" then
+    --     message.content = "<task>" .. content .. "</task>"
+    --   elseif type(content) == "table" then
+    --     for idx, item in ipairs(content) do
+    --       if type(item) == "string" then
+    --         item = "<task>" .. item .. "</task>"
+    --         content[idx] = item
+    --       elseif type(item) == "table" and item.type == "text" then
+    --         item.content = "<task>" .. item.content .. "</task>"
+    --         content[idx] = item
+    --       end
+    --     end
+    --   end
+    -- end
     table.insert(messages, message)
   end
 
